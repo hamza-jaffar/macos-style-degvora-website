@@ -1,6 +1,14 @@
 import React from "react";
 
-const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({
+  wallpaper,
+  screenType,
+  children,
+}: {
+  wallpaper: string;
+  screenType: string;
+  children: React.ReactNode;
+}) => {
   return (
     <div
       className="h-screen w-screen bg-cover bg-center"
@@ -11,4 +19,4 @@ const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default DesktopLayout;
+export default MainLayout;

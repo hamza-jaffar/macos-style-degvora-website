@@ -1,6 +1,4 @@
-import DesktopLayout from "@/components/desktop/layout";
-import MobileLayout from "@/components/mobile/layout";
-import TabletLayout from "@/components/tablet/layout";
+import MainLayout from "@/components/main-layout";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type ScreenType = "mobile" | "tablet" | "desktop";
@@ -51,15 +49,15 @@ const useResponsiveType = () => useContext(ResponsiveContext);
 
 export const DesktopView = ({ children }: ViewProps) => {
   const screenType = useResponsiveType();
-  return screenType === "desktop" ? <DesktopLayout>{children}</DesktopLayout> : null;
+  return screenType === "desktop" ? <MainLayout wallpaper="wallpapers/ipad.png" screenType={`${screenType}`}>{children}</MainLayout> : null;
 };
 
 export const TabletView = ({ children }: ViewProps) => {
   const screenType = useResponsiveType();
-  return screenType === "tablet" ? <TabletLayout>{children}</TabletLayout> : null;
+  return screenType === "tablet" ? <MainLayout wallpaper="wallpapers/ipad.png" screenType={`${screenType}`}>{children}</MainLayout> : null;
 };
 
 export const MobileView = ({ children }: ViewProps) => {
   const screenType = useResponsiveType();
-  return screenType === "mobile" ? <MobileLayout>{children}</MobileLayout> : null;
+  return screenType === "mobile" ? <MainLayout wallpaper="wallpapers/iphone.png" screenType={`${screenType}`}>{children}</MainLayout> : null;
 };
