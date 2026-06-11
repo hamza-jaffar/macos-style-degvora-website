@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const DesktopLayout = ({children}: { children: React.ReactNode }) => {
+const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>{children}</div>
-  )
-}
+    <div
+      className="h-screen w-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/wallpapers/ipad.png')" }}
+    >
+      {children}
+    </div>
+  );
+};
 
-export default DesktopLayout
+export default DesktopLayout;
