@@ -5,13 +5,14 @@ import React, { useState, useEffect } from "react";
 
 const MenuBar = () => {
   const [dateTime, setDateTime] = useState("");
+  const [mobileTime, setMobileTime] = useState("");
 
   useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
       
-      // Formats to look exactly like Apple's top bar: "Fri Jun 12  5:51 AM"
-      const formatted = now.toLocaleString("en-US", {
+      // Full desktop format: "Fri Jun 12 5:54 AM"
+      const fullFormat = now.toLocaleString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
@@ -19,12 +20,18 @@ const MenuBar = () => {
         minute: "2-digit",
         hour12: true,
       });
+
+      // Compact mobile format: "5:54 AM"
+      const compactFormat = now.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
       
-      // Clean up consecutive spaces to closely match apple system tracking spacing
-      setDateTime(formatted.replace(/,/g, ""));
+      setDateTime(fullFormat.replace(/,/g, ""));
+      setMobileTime(compactFormat);
     };
 
-    // Run instantly on mount, then update every second for clock precision
     updateDateTime();
     const timer = setInterval(updateDateTime, 1000);
 
@@ -33,12 +40,12 @@ const MenuBar = () => {
 
   return (
     <div
-      className="w-full h-7 fixed top-0 left-0 z-50 flex items-center justify-between px-4
+      className="w-full h-7 fixed top-0 left-0 z-50 flex items-center justify-between px-3 md:px-4
                  bg-slate-950/35 backdrop-blur-md 
                  border-b border-white/[0.08] text-white/90 text-[13px] select-none font-sans"
     >
       {/* LEFT SIDE: Apple Logo + System Context Options */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 md:gap-4">
         <div className="flex items-center cursor-pointer transition-opacity hover:opacity-100 opacity-90">
           <Image 
             src="/icons/apple.png" 
@@ -49,7 +56,7 @@ const MenuBar = () => {
           />
         </div>
         
-        {/* Core Menu Window Links */}
+        {/* Core Menu Window Links: "Finder" stays visible; sub-menus collapse progressively */}
         <span className="font-semibold cursor-pointer tracking-wide text-white">Finder</span>
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden sm:inline">File</span>
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden sm:inline">Edit</span>
@@ -59,26 +66,30 @@ const MenuBar = () => {
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden lg:inline">Help</span>
       </div>
 
-      {/* RIGHT SIDE: Control Center Utilities + Dynamic Live Time String */}
-      <div className="flex items-center gap-4.5 font-normal tracking-wide">
-        {/* Dynamic status icons tray */}
-        <div className="flex items-center gap-2">
-          {[1,2,3,4].map((iconName) => (
-            <div key={iconName} className="cursor-pointer transition-opacity flex items-center">
+      {/* RIGHT SIDE: Control Center Utilities + Adaptive Live Time String */}
+      <div className="flex items-center gap-2 md:gap-4.5 font-normal tracking-wide">
+        
+        {/* Status icons tray: Displays on tablets and monitors, hides completely on mobile screens */}
+        <div className="hidden sm:flex items-center gap-2">
+          {[1, 2, 3, 4].map((iconName) => (
+            <div key={iconName} className="cursor-pointer transition-opacity flex items-center opacity-90 hover:opacity-100">
               <Image
                 src={`/icons/${iconName}-menu-item.png`}
-                width={22}
-                height={22}
-                alt={`${iconName} Icon`}
+                width={18}
+                height={18}
+                alt={`Status Icon ${iconName}`}
                 className="object-contain"
               />
             </div>
           ))}
         </div>
 
-        {/* Live System Time Render */}
-        <div className="cursor-pointer opacity-90 hover:opacity-100 transition-opacity pl-1 tabular-nums font-normal">
-          {dateTime || "Loading..."}
+        {/* Live System Time Render: Swaps between desktop string and compact mobile typography */}
+        <div className="cursor-pointer opacity-90 hover:opacity-100 transition-opacity pl-1 tabular-nums font-normal text-xs md:text-[13px]">
+          {/* Mobile view text token */}
+          <span className="inline sm:hidden">{mobileTime || "Loading..."}</span>
+          {/* Desktop view text token */}
+          <span className="hidden sm:inline">{dateTime || "Loading..."}</span>
         </div>
       </div>
     </div>
