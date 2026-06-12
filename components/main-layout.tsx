@@ -1,4 +1,5 @@
 import React from "react";
+import TaskBar from "./sections/task-bar";
 
 const MainLayout = ({
   wallpaper,
@@ -15,6 +16,7 @@ const MainLayout = ({
       style={{ backgroundImage: "url('/wallpapers/ipad.png')" }}
     >
       {children}
+      <TaskBar />
     </div>
   );
 };

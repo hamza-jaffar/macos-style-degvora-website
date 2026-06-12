@@ -1,7 +1,6 @@
 import MainLayout from "@/components/main-layout";
+import { ScreenType } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
-
-type ScreenType = "mobile" | "tablet" | "desktop";
 
 const ResponsiveContext = createContext<ScreenType>("desktop");
 
@@ -45,7 +44,7 @@ export const EnsureResponsiveness = ({ children }: WrapperProps) => {
   );
 };
 
-const useResponsiveType = () => useContext(ResponsiveContext);
+export const useResponsiveType = () => useContext(ResponsiveContext);
 
 export const DesktopView = ({ children }: ViewProps) => {
   const screenType = useResponsiveType();
