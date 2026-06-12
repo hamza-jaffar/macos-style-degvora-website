@@ -2,9 +2,147 @@
 
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Override default tailwind cursors to use custom macOS cursors */
+  --cursor-default: url("/cursors/Default.png"), default;
+  --cursor-pointer: url("/cursors/Hand (Pointing).png"), pointer;
+  --cursor-text: url("/cursors/Text Cursor.png"), text;
+  --cursor-not-allowed: url("/cursors/Cross.png"), not-allowed;
+  --cursor-help: url("/cursors/Help.png"), help;
+  --cursor-grab: url("/cursors/Hand (Open).png"), grab;
+  --cursor-grabbing: url("/cursors/Hand (Grabbing).png"), grabbing;
+  --cursor-move: url("/cursors/Move.png"), move;
+  --cursor-wait: url("/cursors/Beachball.png"), wait;
+  --cursor-progress: url("/cursors/Busy.png"), progress;
+  --cursor-zoom-in: url("/cursors/Zoom In.png"), zoom-in;
+  --cursor-zoom-out: url("/cursors/Zoom Out.png"), zoom-out;
+  --cursor-copy: url("/cursors/Copy.png"), copy;
+  --cursor-ew-resize: url("/cursors/Resize (Left-Right).png"), ew-resize;
+  --cursor-ns-resize: url("/cursors/Resize (Up-Down).png"), ns-resize;
+  --cursor-nesw-resize: url("/cursors/North-East South-West.png"), nesw-resize;
+  --cursor-nwse-resize: url("/cursors/North-West South-East.png"), nwse-resize;
 }
 
-body {
-  background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* ==========================================================================
+   GLOBAL MACOS CURSOR SYSTEM CONFIGURATION
+   ========================================================================== */
+
+/* 1. Base Default Pointer (Everywhere by default) */
+html, body {
+  cursor: url('/cursors/Default.png'), default;
+}
+
+/* 2. Selection Link & Active Click Pointer (Buttons, links, clickable dock apps) */
+a, button, [role="button"], input[type="submit"], select {
+  cursor: url('/cursors/Hand (Pointing).png'), pointer !important;
+}
+
+/* 3. Text Fields & Typing Selection Inputs */
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, [contenteditable="true"] {
+  cursor: url('/cursors/Text Cursor.png'), text;
+}
+
+/* 4. Not Allowed / Disabled Elements */
+button:disabled, input:disabled, .cursor-not-allowed {
+  cursor: url('/cursors/Cross.png'), not-allowed !important;
+}
+
+/* 5. Help states */
+.cursor-help {
+  cursor: url('/cursors/Help.png'), help;
+}
+
+/* ==========================================================================
+   CUSTOM OPERATING SYSTEM UTILITY CLASSES (For Windows & Canvas Actions)
+   ========================================================================== */
+
+/* Draggable Windows Top Headers (Before and during grab actions) */
+.mac-grab {
+  cursor: url('/cursors/Hand (Open).png'), grab;
+}
+.mac-grabbing {
+  cursor: url('/cursors/Hand (Grabbing).png'), grabbing !important;
+}
+
+/* Canvas moving systems */
+.mac-move {
+  cursor: url('/cursors/Move.png'), move;
+}
+
+/* Zooming controls */
+.mac-zoom-in {
+  cursor: url('/cursors/Zoom In.png'), zoom-in;
+}
+.mac-zoom-out {
+  cursor: url('/cursors/Zoom Out.png'), zoom-out;
+}
+
+/* Loading / Processing System Spinners (Apply when fetching API or booting apps) */
+.mac-loading {
+  cursor: url('/cursors/Beachball.png'), wait !important;
+}
+.mac-busy {
+  cursor: url('/cursors/Busy.png'), progress;
+}
+
+/* File Actions */
+.mac-copy {
+  cursor: url('/cursors/Copy.png'), copy;
+}
+
+/* ==========================================================================
+   WINDOW RESIZING CONTROLS (Edge Hover States)
+   ========================================================================== */
+
+/* Horizontal Resize (Left and Right Edges) */
+.mac-resize-h {
+  cursor: url('/cursors/Resize (Left-Right).png'), ew-resize;
+}
+.mac-resize-left {
+  cursor: url('/cursors/Resize (Left).png'), w-resize;
+}
+.mac-resize-right {
+  cursor: url('/cursors/Resize (Right).png'), e-resize;
+}
+.mac-resize-west-east {
+  cursor: url('/cursors/West-East.png'), ew-resize;
+}
+
+/* Vertical Resize (Top and Bottom Edges) */
+.mac-resize-v {
+  cursor: url('/cursors/Resize (Up-Down).png'), ns-resize;
+}
+.mac-resize-up {
+  cursor: url('/cursors/Resize (Up).png'), n-resize;
+}
+.mac-resize-down {
+  cursor: url('/cursors/Resize (Down).png'), s-resize;
+}
+
+/* Cardinal Direction Fallbacks */
+.cursor-north { cursor: url('/cursors/North.png'), n-resize; }
+.cursor-south { cursor: url('/cursors/South.png'), s-resize; }
+.cursor-east { cursor: url('/cursors/East.png'), e-resize; }
+.cursor-west { cursor: url('/cursors/West.png'), w-resize; }
+
+/* Diagonal Window Corner Resize Controllers */
+.mac-resize-ne-sw {
+  cursor: url('/cursors/North-East South-West.png'), nesw-resize;
+}
+.mac-resize-nw-se {
+  cursor: url('/cursors/North-West South-East.png'), nwse-resize;
+}
+.mac-resize-north-east {
+  cursor: url('/cursors/North-East.png'), ne-resize;
+}
+.mac-resize-north-west {
+  cursor: url('/cursors/North-West.png'), nw-resize;
+}
+.mac-resize-south-east {
+  cursor: url('/cursors/South-East.png'), se-resize;
+}
+.mac-resize-south-west {
+  cursor: url('/cursors/South-West.png'), sw-resize;
 }

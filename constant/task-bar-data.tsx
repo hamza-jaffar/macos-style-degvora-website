@@ -17,4 +17,7 @@ export const TaskBarData: TaskBarDataType[] = [
   { id: 9, icon: "/icons/video.png", label: "Video", display: "desktop" },
   { id: 10, icon: "/icons/wallpaper.png", label: "Wallpaper", display: "desktop" },
   { id: 11, icon: "/icons/trashfull.png", label: "Trash", display: "desktop" },
+  { id: 12, icon: "/icons/terminal.png", label: "Terminal", display: "mobile" },
+  { id: 13, icon: "/icons/calculator.png", label: "Calculator", display: "mobile" },
+
 ];

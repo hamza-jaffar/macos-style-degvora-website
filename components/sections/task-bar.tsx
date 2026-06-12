@@ -59,8 +59,8 @@ const TaskBar = () => {
                 <Image
                   src={app.icon}
                   alt={app.label}
-                  width={50}
-                  height={50}
+                  width={45}
+                  height={45}
                   className="object-contain drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] filter transition-all"
                   priority
                 />
