@@ -4,8 +4,14 @@ import Image from "next/image";
 import { TaskBarData } from "@/constant/task-bar-data";
 import { TaskBarDataType } from "@/types/task-bar";
 import { useResponsiveType } from "@/context/ensure-responsiveness";
+import { AppInstance } from "../app-layout";
 
-const TaskBar = () => {
+interface TaskBarProps {
+  onAppClick?: (id: string) => void;
+  activeApps?: AppInstance[];
+}
+
+const TaskBar = ({ onAppClick, activeApps = [] }: TaskBarProps) => {
 
   const screenType = useResponsiveType();
   const visibleApps = TaskBarData.filter((app: TaskBarDataType) => {
@@ -18,7 +24,7 @@ const TaskBar = () => {
   if (visibleApps.length === 0) return null;
 
   return (
-    <nav className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 select-none pointer-events-auto">
+    <nav className="relative pb-3 z-[1000] select-none pointer-events-auto">
       {/* Outer Glow Container: Creates a deep premium color-bleed warmth over the wallpaper */}
       <div className="relative group">
         <div className="absolute -inset-2 bg-linear-to-r from-cyan-500/10 via-purple-500/15 to-pink-500/10 rounded-4xl blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -50,6 +56,7 @@ const TaskBar = () => {
 
               {/* Interactive App Button: Pure baseline shift without visual squares */}
               <button
+                onClick={() => onAppClick?.(app.id)}
                 className="w-12 h-12 flex items-center justify-center 
                            cursor-pointer outline-none border-none bg-transparent
                            transition-all duration-200 cubic-bezier(0.25, 1, 0.5, 1)
@@ -67,7 +74,10 @@ const TaskBar = () => {
               </button>
 
               {/* Active Indicator Dot: True Apple open-app marker behavior */}
-              <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white/80 shadow-[0_0_5px_rgba(255,255,255,0.9)] opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300" />
+              <div 
+                className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white/80 shadow-[0_0_5px_rgba(255,255,255,0.9)] transition-opacity duration-300
+                  ${activeApps.some((a) => a.id === app.id && a.isOpen) ? "opacity-100" : "opacity-0 group-hover/icon:opacity-100"}`} 
+              />
             </li>
           ))}
         </ul>

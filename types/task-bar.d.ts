@@ -1,5 +1,5 @@
 export interface TaskBarDataType {
-    id: number;
+    id: string;
     icon: string;
     label: string;
     display: "desktop" | "tablet" | "mobile"

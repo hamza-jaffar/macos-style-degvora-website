@@ -40,9 +40,9 @@ const MenuBar = () => {
 
   return (
     <div
-      className="w-full h-7 fixed top-0 left-0 z-50 flex items-center justify-between px-3 md:px-4
+      className="w-full h-7 fixed top-0 left-0 z-1000 flex items-center justify-between px-3 md:px-4
                  bg-slate-950/35 backdrop-blur-md 
-                 border-b border-white/[0.08] text-white/90 text-[13px] select-none font-sans"
+                 border-b border-white/8 text-white/90 text-[13px] select-none font-sans"
     >
       {/* LEFT SIDE: Apple Logo + System Context Options */}
       <div className="flex items-center gap-3 md:gap-4">
