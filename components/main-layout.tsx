@@ -19,26 +19,7 @@ const MainLayout = ({
   children: React.ReactNode;
 }) => {
   // Centralized State Engine tracking all system applications
-  const [apps, setApps] = useState<AppInstance[]>([
-    {
-      id: "safari",
-      title: "Safari Browser",
-      icon: "/icons/safari.png",
-      isOpen: false,
-      isMinimized: false,
-      isMaximized: false,
-      defaultX: 220,
-      defaultY: 140,
-      defaultWidth: 700,
-      defaultHeight: 450,
-      component: (
-        <div className="w-full h-full flex flex-col justify-center items-center text-slate-400">
-          <p className="text-lg font-medium text-white mb-1">Flexi-Fields Documentation</p>
-          <p className="text-sm text-center max-w-sm">Shopify application platform data matrix loading configuration successfully compiled.</p>
-        </div>
-      ),
-    },
-  ]);
+  const [apps, setApps] = useState<AppInstance[]>([]);
 
   // Track stacking order
   const [focusOrder, setFocusOrder] = useState<string[]>(["terminal", "safari"]);
