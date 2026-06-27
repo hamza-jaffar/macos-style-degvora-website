@@ -3,7 +3,7 @@ import { type TaskBarDataType } from "@/types/task-bar";
 export const TaskBarData: TaskBarDataType[] = [
   // 📱 THESE 4 SHOW ON EVERY SCREEN (Mobile, Tablet, Desktop)
   { id: "file-explorer", icon: "/icons/folder.png", label: "File Explorer", display: "mobile" },
-  { id: "doc", icon: "/icons/doc.png", label: "Doc", display: "mobile" },
+  { id: "doc", icon: "/icons/Doc.png", label: "Doc", display: "mobile" },
   { id: "safari", icon: "/icons/safari.png", label: "Safari Browser", display: "mobile" },
   { id: "mail", icon: "/icons/mail.png", label: "Mail", display: "mobile" },
 

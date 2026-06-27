@@ -28,7 +28,7 @@ const AppLayout = () => {
     {
       id: "terminal",
       title: "Terminal — bash",
-      icon: "/icons/doc.png",
+      icon: "/icons/Doc.png",
       isOpen: true,
       isMinimized: false,
       isMaximized: false,

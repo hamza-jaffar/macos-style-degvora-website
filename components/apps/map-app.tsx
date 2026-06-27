@@ -83,7 +83,7 @@ export const MapApp = () => {
       />
 
       {/* LEFT PANEL: Responsive Navigation Hub */}
-      <div className="w-full lg:w-[40%] xl:w-[35%] border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col bg-[#090e1a]/95 backdrop-blur-xl z-10 shrink-0">
+      <div className="w-full xl:w-[25%] border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col bg-[#090e1a]/95 backdrop-blur-xl z-10 shrink-0">
         
         {/* Header HUD Status Bar */}
         <div className="p-4 border-b border-white/5 flex items-center justify-between bg-black/30">
