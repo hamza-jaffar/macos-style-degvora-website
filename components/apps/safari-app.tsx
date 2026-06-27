@@ -68,10 +68,10 @@ export const SafariApp = () => {
     <div className="w-full h-full bg-[#1c1c1e] rounded-t-xl flex flex-col overflow-hidden font-sans select-none text-white border border-white/10 shadow-2xl">
       
       {/* SAFARI TOOLBAR */}
-      <div className="bg-[#2c2c2e] border-b border-black/40 px-3 py-2 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 shrink-0">
+      <div className="bg-[#2c2c2e] border-b border-black/40 px-3 py-2 flex items-center gap-2 sm:gap-4 shrink-0">
         
         {/* Top Control Bar (Window Controls & Navigation) */}
-        <div className="flex items-center justify-between w-full sm:w-auto gap-4">
+        <div className="flex items-center justify-between w-fit gap-4">
           <button 
             onClick={handleRefresh}
             className="text-slate-400 hover:text-white transition-colors active:scale-90 transform p-1"

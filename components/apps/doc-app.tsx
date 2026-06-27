@@ -1,13 +1,15 @@
 "use client";
 import React, { useState, useMemo } from "react";
-import { Columns, Eye, Code, Layers, FileCode, CheckCircle } from "lucide-react";
+import { Columns, Eye, Code, Layers, FileCode, CheckCircle, ArrowLeft } from "lucide-react";
 import { initialFiles, MarkdownFile } from "@/constant/doc-app-data";
 
 export const DocApp = () => {
   const [files, setFiles] = useState<MarkdownFile[]>(initialFiles);
-  // Setting the default startup file focus to our new diagnostics status tracker:
   const [activeFileId, setActiveFileId] = useState<string>("system-status");
   const [viewMode, setViewMode] = useState<"split" | "edit" | "preview">("split");
+  
+  // Track mobile view state (false means viewing file list, true means viewing file content)
+  const [isMobileViewingDoc, setIsMobileViewingDoc] = useState<boolean>(false);
 
   // Fetch data context for current active document link
   const currentFile = useMemo(() => {
@@ -70,13 +72,26 @@ export const DocApp = () => {
     <div className="w-full h-full bg-[#141722] text-slate-200 flex flex-col overflow-hidden border border-white/5 font-sans select-none">
 
       {/* MACOS APPLICATION TOOLBAR ACTION HEADER */}
-      <div className="bg-[#1c1f2e] border-b border-black/40 px-3 py-2 flex flex-wrap items-center justify-between gap-3 shrink-0">
-        <span className="text-[11px] font-mono tracking-wider text-slate-500 font-bold uppercase hidden sm:inline">
-          Notes Engine v1.0
-        </span>
+      <div className="bg-[#1c1f2e] border-b border-black/40 px-3 py-2 flex items-center justify-between gap-3 shrink-0">
+        
+        {/* Dynamic Back Navigation Anchor for Mobile viewports */}
+        <div className="flex items-center gap-2">
+          {isMobileViewingDoc && (
+            <button
+              onClick={() => setIsMobileViewingDoc(false)}
+              className="md:hidden flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/5 rounded-md text-[10px] text-sky-400 font-bold active:bg-white/10 transition-colors"
+            >
+              <ArrowLeft className="w-3 h-3" />
+              <span>Back to Logs</span>
+            </button>
+          )}
+          <span className={`text-[11px] font-mono tracking-wider text-slate-500 font-bold uppercase ${isMobileViewingDoc ? "hidden sm:inline" : "inline"}`}>
+            Notes Engine v1.0
+          </span>
+        </div>
 
-        {/* Dynamic View Mode Split Controller Segment Toggle Switch */}
-        <div className="bg-black/40 border border-white/5 rounded-lg p-0.5 flex items-center gap-0.5">
+        {/* Dynamic View Mode Controllers (Hidden on mobile index selection state) */}
+        <div className={`bg-black/40 border border-white/5 rounded-lg p-0.5 flex items-center gap-0.5 ${!isMobileViewingDoc ? "hidden md:flex" : "flex"}`}>
           <button
             onClick={() => setViewMode("edit")}
             className={`px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all ${viewMode === "edit" ? "bg-white/10 text-white" : "text-slate-400 hover:text-slate-200"}`}
@@ -105,7 +120,7 @@ export const DocApp = () => {
       <div className="flex-1 w-full flex overflow-hidden relative">
 
         {/* SIDEBAR FILE NAVIGATOR SYSTEM PANEL PANEL */}
-        <div className="w-44 sm:w-52 border-r border-black/30 bg-[#161a29]/95 shrink-0 hidden md:flex flex-col justify-between p-3">
+        <div className={`w-full md:w-44 sm:md:w-52 border-r border-black/30 bg-[#161a29]/95 shrink-0 md:flex flex-col justify-between p-3 ${isMobileViewingDoc ? "hidden" : "flex"}`}>
           <div className="space-y-4">
             <div>
               <span className="text-[9px] font-mono font-black text-slate-500 tracking-widest uppercase block px-2 mb-1.5">
@@ -115,8 +130,11 @@ export const DocApp = () => {
                 {files.map(f => (
                   <button
                     key={f.id}
-                    onClick={() => setActiveFileId(f.id)}
-                    className={`w-full px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-left text-xs transition-all ${activeFileId === f.id ? "bg-sky-500/10 text-sky-400 font-bold border border-sky-500/10" : "text-slate-400 hover:bg-white/[0.02]"}`}
+                    onClick={() => {
+                      setActiveFileId(f.id);
+                      setIsMobileViewingDoc(true);
+                    }}
+                    className={`w-full px-2.5 py-2.5 md:py-1.5 rounded-lg flex items-center gap-2 text-left text-xs transition-all ${activeFileId === f.id ? "bg-sky-500/10 text-sky-400 font-bold border border-sky-500/10" : "text-slate-400 hover:bg-white/[0.02]"}`}
                   >
                     <span>{f.icon}</span>
                     <span className="truncate">{f.name}</span>
@@ -127,7 +145,7 @@ export const DocApp = () => {
           </div>
 
           {/* Bottom Diagnostics Meta Cluster HUD */}
-          <div className="bg-black/20 rounded-xl p-2.5 border border-white/5 space-y-1 font-mono text-[9px] text-slate-500">
+          <div className="bg-black/20 rounded-xl p-2.5 border border-white/5 space-y-1 font-mono text-[9px] text-slate-500 mt-4 md:mt-0">
             <div className="flex items-center justify-between">
               <span>Lines:</span>
               <span className="text-slate-400 font-bold">{metrics.lines}</span>
@@ -140,11 +158,11 @@ export const DocApp = () => {
         </div>
 
         {/* EDITOR INTERFACE AND CANVAS ENGINE AREA PANELS */}
-        <div className="flex-1 flex overflow-hidden bg-[#0d0f17]">
+        <div className={`flex-1 flex overflow-hidden bg-[#0d0f17] ${!isMobileViewingDoc ? "hidden md:flex" : "flex"}`}>
 
           {/* THE SOURCE CODE RAW EDITOR BOX TEXTAREA LAYOUT PANE */}
           {(viewMode === "edit" || viewMode === "split") && (
-            <div className="flex-1 h-full flex flex-col relative border-r border-black/40">
+            <div className={`flex-1 h-full flex flex-col relative border-r border-black/40 ${(viewMode === "split") ? "hidden lg:flex" : "flex"}`}>
               <div className="bg-[#121522] px-4 py-1.5 border-b border-white/5 flex items-center justify-between font-mono text-[10px] text-slate-500 shrink-0">
                 <span className="flex items-center gap-1.5">
                   <FileCode className="w-3 h-3 text-sky-400" /> SOURCE_MATRIX
