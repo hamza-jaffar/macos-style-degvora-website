@@ -9,6 +9,8 @@ const TerminalApp = dynamic(() => import("./ternimal-app"), { ssr: false });
 const CalendarApp = dynamic(() => import("./calender-app"), { ssr: false });
 const MessageApp = dynamic(() => import("./message-app"), { ssr: false });
 const CalculatorApp = dynamic(() => import("./calculator-app"), { ssr: false });
+const TrashApp = dynamic(() => import("./trash-app"), { ssr: false });
+
 const FileExplorerApp = dynamic(() => import("./file-explorer-app"), {
   ssr: false,
 });
@@ -16,16 +18,7 @@ const MailApp = dynamic(() => import("./mail-app"), { ssr: false });
 const NotepadApp = dynamic(() => import("./notepad-app"), { ssr: false });
 const SafariApp = dynamic(() => import("./safari-app"), { ssr: false });
 const DocApp = dynamic(() => import("./doc-app"), { ssr: false });
-const { MapApp, TrashApp } = {
-  MapApp: dynamic(
-    () => import("./mics-app").then((m) => ({ default: m.MapApp })),
-    { ssr: false },
-  ),
-  TrashApp: dynamic(
-    () => import("./mics-app").then((m) => ({ default: m.TrashApp })),
-    { ssr: false },
-  ),
-};
+const MapApp = dynamic(() => import("./map-app"), { ssr: false });
 
 export interface AppConfig {
   defaultWidth: number;
