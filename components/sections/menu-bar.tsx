@@ -1,9 +1,10 @@
 "use client";
 
+import { TaskBarData } from "@/constant/task-bar-data";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-const MenuBar = () => {
+const MenuBar = ({ onAppClick }: { onAppClick?: (id: string) => void; }) => {
   const [dateTime, setDateTime] = useState("");
   const [mobileTime, setMobileTime] = useState("");
 
@@ -58,7 +59,7 @@ const MenuBar = () => {
         
         {/* Core Menu Window Links: "Finder" stays visible; sub-menus collapse progressively */}
         <span className="font-semibold cursor-pointer tracking-wide text-white">Finder</span>
-        <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden sm:inline">File</span>
+        <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden sm:inline" onClick={() => onAppClick?.("file-explorer")} >File</span>
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden sm:inline">Edit</span>
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden md:inline">View</span>
         <span className="cursor-pointer opacity-85 hover:opacity-100 transition-opacity hidden md:inline">Go</span>

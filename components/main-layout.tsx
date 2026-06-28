@@ -45,7 +45,7 @@ const MainLayout = ({
   };
 
   // Triggered when clicking a Dock icon
-  const handleDockIconClick = (id: string) => {
+  const handleAppIconClick = (id: string) => {
     const appExists = apps.some((app) => app.id === id);
 
     if (!appExists) {
@@ -106,7 +106,7 @@ const MainLayout = ({
       style={{ backgroundImage: `url('/${wallpaper}')` }}
     >
       {/* Menu Bar */}
-      {!shouldHideMenuBar && <MenuBar />}
+      {!shouldHideMenuBar && <MenuBar onAppClick={handleAppIconClick} />}
 
       {/* Background content (e.g. Desktop icons or home widget) */}
       <div className="absolute inset-0 pointer-events-auto">
@@ -145,7 +145,7 @@ const MainLayout = ({
           isTaskBarAutoHide ? "translate-y-[calc(100%-8px)] hover:translate-y-0" : ""
         }`}
       >
-        <TaskBar onAppClick={handleDockIconClick} activeApps={apps} />
+        <TaskBar onAppClick={handleAppIconClick} activeApps={apps} />
       </div>
     </div>
   );
